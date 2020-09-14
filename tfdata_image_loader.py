@@ -48,7 +48,7 @@ class TFDataImageLoader:
             function should be vectorized and support tf.data.Dataset map operation.
             If not provided the data will be loaded as it comes out of
             pre_process_function.
-        verbose: Whether to
+        verbose: Whether to display data information upon creation. Defaults to True.
 
     Example:
         data_loader = TFDataImageLoader(

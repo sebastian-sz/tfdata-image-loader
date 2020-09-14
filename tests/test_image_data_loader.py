@@ -18,7 +18,7 @@ def test_loader_loading_all_images_in_subdirectories(data_loader, data_dir):
     assert total_images_count == loaded_images_count
 
 
-def test_loader_taking_all_classes_into_account(data_dir, data_loader):
+def test_loader_taking_all_classes_into_the_account(data_dir, data_loader):
     class_directory_names = sorted(os.listdir(data_dir))
 
     assert (class_directory_names == data_loader.class_names).all()

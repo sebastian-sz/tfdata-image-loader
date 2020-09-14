@@ -41,5 +41,5 @@ def data_loader_no_shuffling():
 def error_throwing_data_loader():
     invalid_mode_config = LOADER_CONFIG_FOR_TESTING.copy()
     invalid_mode_config["mode"] = "some_not_implemented_mode"
-    # Return tuple, as direct creation will throw an error
+    # Return tuple, because direct creation will throw an error
     return TFDataImageLoader, invalid_mode_config
