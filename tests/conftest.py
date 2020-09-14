@@ -25,9 +25,7 @@ def sparse_data_loader():
 @pytest.fixture
 def augmenting_data_loader():
     augmentations_present_config = LOADER_CONFIG_FOR_TESTING.copy()
-    augmentations_present_config[
-        "augmentation_function"
-    ] = utils.simple_augment
+    augmentations_present_config["augmentation_function"] = utils.simple_augment
     augmentations_present_config["shuffle"] = False
     return TFDataImageLoader(**augmentations_present_config)
 
@@ -37,3 +35,11 @@ def data_loader_no_shuffling():
     no_shuffling_config = LOADER_CONFIG_FOR_TESTING.copy()
     no_shuffling_config["shuffle"] = False
     return TFDataImageLoader(**no_shuffling_config)
+
+
+@pytest.fixture
+def error_throwing_data_loader():
+    invalid_mode_config = LOADER_CONFIG_FOR_TESTING.copy()
+    invalid_mode_config["mode"] = "some_not_implemented_mode"
+    # Return tuple, as direct creation will throw an error
+    return TFDataImageLoader, invalid_mode_config
