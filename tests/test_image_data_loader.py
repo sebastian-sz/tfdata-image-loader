@@ -59,7 +59,7 @@ def test_resizing_operations_work(size_to_test):
     ],
 )
 def test_pre_processing_being_correctly_applied(
-        function, min_value, max_value, expected_dtype
+    function, min_value, max_value, expected_dtype
 ):
     loader_config = LOADER_CONFIG_FOR_TESTING.copy()
     loader_config["pre_process_function"] = function
@@ -132,16 +132,16 @@ def test_if_augmentation_functions_are_correctly_applied(augmenting_data_loader)
 
 def test_data_loader_correctly_matching_images_with_labels(data_loader):
     filename_label_mapping = {
-        './resources/images/Class_2/picture_1.jpg': np.array([0, 1]),
-        './resources/images/Class_2/picture_2.jpg': np.array([0, 1]),
-        './resources/images/Class_2/picture_3.jpg': np.array([0, 1]),
-        './resources/images/Class_2/picture_5.jpg': np.array([0, 1]),
-        './resources/images/Class_2/picture_6.jpg': np.array([0, 1]),
-        './resources/images/Class_2/picture_9.jpg': np.array([0, 1]),
-        './resources/images/Class_2/picture_10.jpg': np.array([0, 1]),
-        './resources/images/Class_1/picture_4.jpg': np.array([1, 0]),
-        './resources/images/Class_1/picture_7.jpg': np.array([1, 0]),
-        './resources/images/Class_1/picture_8.jpg': np.array([1, 0]),
+        "./resources/images/Class_2/picture_1.jpg": np.array([0, 1]),
+        "./resources/images/Class_2/picture_2.jpg": np.array([0, 1]),
+        "./resources/images/Class_2/picture_3.jpg": np.array([0, 1]),
+        "./resources/images/Class_2/picture_5.jpg": np.array([0, 1]),
+        "./resources/images/Class_2/picture_6.jpg": np.array([0, 1]),
+        "./resources/images/Class_2/picture_9.jpg": np.array([0, 1]),
+        "./resources/images/Class_2/picture_10.jpg": np.array([0, 1]),
+        "./resources/images/Class_1/picture_4.jpg": np.array([1, 0]),
+        "./resources/images/Class_1/picture_7.jpg": np.array([1, 0]),
+        "./resources/images/Class_1/picture_8.jpg": np.array([1, 0]),
     }
 
     expected_image_hash_label_mapping = {
@@ -171,3 +171,12 @@ def test_if_loader_correctly_calculates_image_count(data_loader, data_dir):
     images_number = utils.calculate_files_in_all_directories(data_dir)
 
     assert data_loader.get_image_count() == images_number
+
+
+def test_loader_throwing_error_when_created_with_unsupported_mode(
+    error_throwing_data_loader,
+):
+    data_loader, invalid_config = error_throwing_data_loader
+
+    with pytest.raises(ValueError):
+        data_loader(**invalid_config)

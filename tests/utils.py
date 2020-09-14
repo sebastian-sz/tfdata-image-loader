@@ -61,19 +61,19 @@ def hash_image(image: np.ndarray) -> str:
 
 
 def empty_pre_process(
-        image: tf.Tensor, label: tf.Tensor
+    image: tf.Tensor, label: tf.Tensor
 ) -> Tuple[tf.Tensor, tf.Tensor]:
     return image, label
 
 
 def pre_process_for_0_1(
-        image: tf.Tensor, label: tf.Tensor
+    image: tf.Tensor, label: tf.Tensor
 ) -> Tuple[tf.Tensor, tf.Tensor]:
     return tf.divide(image, 255.0), label
 
 
 def pre_process_for_minus_1_plus_1(
-        image: tf.Tensor, label: tf.Tensor
+    image: tf.Tensor, label: tf.Tensor
 ) -> Tuple[tf.Tensor, tf.Tensor]:
     return tf.divide(image, 127.5) - 1, label
 
