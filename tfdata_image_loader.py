@@ -132,8 +132,9 @@ class TFDataImageLoader:
         """
         file_names_dataset = self._load_file_names()
         return (
-            file_names_dataset
-            .map(self._load_img_and_label, num_parallel_calls=self.AUTO_TUNE)
+            file_names_dataset.map(
+                self._load_img_and_label, num_parallel_calls=self.AUTO_TUNE
+            )
             .batch(self.batch_size)
             .apply(self._maybe_apply_pre_processing)
             .apply(self._maybe_apply_augmentation)

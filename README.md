@@ -41,15 +41,8 @@ Either way, if all goes well, you should be able to simply call:
 
 ##### Running tests
 I'm using [pytest](https://docs.pytest.org/en/latest/) library for testing. To run the tests:  
-1. cd into `tests/`
-2. install test dependencies
-3. run `pytest` in your terminal
- 
-```bash
-cd tfdata-image-loader/tests
-pip install -r requirements.txt
-pytest
-```
+1. run `make init_test` (install test dependencies)
+2. run `make test`
 
 ## Basic usage
 Here is a minimal example on how to create an image-label pairs `tf.data.Dataset` using `tfdata-image-loader`.  
