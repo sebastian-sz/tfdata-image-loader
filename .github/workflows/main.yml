@@ -1,0 +1,35 @@
+# Basic workflow for installing the package and running tests.
+
+name: CI
+
+# Trigger the workflow on pull request to the master or develop branch:
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ 3.5, 3.6, 3.7, 3.8 ]
+        tensorflow-version: [2.0, 2.1, 2.2, 2.3]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies (TF version ${{ matrix.tensorflow-version }})
+        with:
+          tensorflow-version: ${{ matrix.tensorflow-version }}
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install tensorflow==${{matrix.tensorflow-version}}
+      - name: Install test packages
+        run: |
+          cd tests/; pip install -r requirements.txt
+      - name: Run tests
+        run: |
+          cd tests/; pytest -v .
