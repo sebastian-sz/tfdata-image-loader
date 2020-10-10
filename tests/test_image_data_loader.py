@@ -4,6 +4,7 @@ import numpy as np
 import pytest
 import tensorflow as tf
 
+from tfdata_image_loader_package_dir import LOADER_ROOT_DIR
 from tests import utils
 from tests.config_for_testing import LOADER_CONFIG_FOR_TESTING
 from tfdata_image_loader import TFDataImageLoader
@@ -131,18 +132,31 @@ def test_if_augmentation_functions_are_correctly_applied(augmenting_data_loader)
 
 
 def test_data_loader_correctly_matching_images_with_labels(data_loader):
-    filename_label_mapping = {
-        "./resources/images/Class_2/picture_1.jpg": np.array([0, 1]),
-        "./resources/images/Class_2/picture_2.jpg": np.array([0, 1]),
-        "./resources/images/Class_2/picture_3.jpg": np.array([0, 1]),
-        "./resources/images/Class_2/picture_5.jpg": np.array([0, 1]),
-        "./resources/images/Class_2/picture_6.jpg": np.array([0, 1]),
-        "./resources/images/Class_2/picture_9.jpg": np.array([0, 1]),
-        "./resources/images/Class_2/picture_10.jpg": np.array([0, 1]),
-        "./resources/images/Class_1/picture_4.jpg": np.array([1, 0]),
-        "./resources/images/Class_1/picture_7.jpg": np.array([1, 0]),
-        "./resources/images/Class_1/picture_8.jpg": np.array([1, 0]),
-    }
+    filenames = [
+        os.path.join(LOADER_ROOT_DIR, "tests/resources/images/Class_2/picture_1.jpg"),
+        os.path.join(LOADER_ROOT_DIR, "tests/resources/images/Class_2/picture_2.jpg"),
+        os.path.join(LOADER_ROOT_DIR, "tests/resources/images/Class_2/picture_3.jpg"),
+        os.path.join(LOADER_ROOT_DIR, "tests/resources/images/Class_2/picture_5.jpg"),
+        os.path.join(LOADER_ROOT_DIR, "tests/resources/images/Class_2/picture_6.jpg"),
+        os.path.join(LOADER_ROOT_DIR, "tests/resources/images/Class_2/picture_9.jpg"),
+        os.path.join(LOADER_ROOT_DIR, "tests/resources/images/Class_2/picture_10.jpg"),
+        os.path.join(LOADER_ROOT_DIR, "tests/resources/images/Class_1/picture_4.jpg"),
+        os.path.join(LOADER_ROOT_DIR, "tests/resources/images/Class_1/picture_7.jpg"),
+        os.path.join(LOADER_ROOT_DIR, "tests/resources/images/Class_1/picture_8.jpg"),
+    ]
+    labels = [
+        np.array([0, 1]),
+        np.array([0, 1]),
+        np.array([0, 1]),
+        np.array([0, 1]),
+        np.array([0, 1]),
+        np.array([0, 1]),
+        np.array([0, 1]),
+        np.array([1, 0]),
+        np.array([1, 0]),
+        np.array([1, 0]),
+    ]
+    filename_label_mapping = {k: v for k, v in zip(filenames, labels)}
 
     expected_image_hash_label_mapping = {
         utils.load_and_hash_image(key): filename_label_mapping[key]
