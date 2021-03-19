@@ -25,10 +25,8 @@ Below is a detailed explanation of each possible argument you can pass to
 |verbose|boolean| Defaults to True. Whether to display loading information or not.
  _________________________  
  *shuffle  
- Note that I am not using `tf.data`'s `shuffle_buffer` as it's much slower and
-  memory inefficient to shuffle image arrays rather than shuffle all file names before loading.
- 
- If you still want `shuffle_buffer` style shuffling (for example after `cache()`) you
+ Note that I am not using `tf.data`'s `shuffle` as it works best when combined
+ with cache. If you still want `shuffle_buffer` style shuffling (for example after `cache()`) you
  can still call `.shuffle()` on returned dataset.  
  Example:
  ```python
@@ -45,25 +43,28 @@ dataset = dataset.shuffle(shuffle_buffer=...)
 _________________________
 
 **pre_process_function  
-This user defined function should take two arguments `image_batch, label_batch` and
- return the same
- arguments, but preprocessed.  
- All the operations performed there should be vectorised (they should work on a batch).   
- Lucky for us, basic math operations are pretty well supported for batch operations. Below is an example function, rescaling the images to 0-1 floats:
+This user defined function should take two arguments `image, label` and return the same
+arguments, but preprocessed. Below is an example function, rescaling the images to 0-1
+floats:
 ```python
- def my_pre_process(image_batch, label_batch):
-    return image_batch / 255., label_batch
+ def my_pre_process(image, label):
+    return image / 255., label
 ```
-For mode advanced cases (regaridng `np.arrays`, not Graph Tensors) you could probably get away with Tensorflow's [numpy function](https://www.tensorflow.org/api_docs/python/tf/numpy_function).
+For more advanced cases (regarding `np.arrays`, not Graph Tensors) you could probably 
+get away with Tensorflow's [numpy function](https://www.tensorflow.org/api_docs/python/tf/numpy_function)
+at the cost of decreased performance.
 _________________________
 ***augmentation_function:  
-Similar to `pre_process_function`. The function should be vectorised. and accept `image_batch, label_batch`. 
-It should return `image_batch, label_batch` too.  
-I recommend using `tf.image.random(...)` operations, which seem to be most suitable for this implementation.  
+Similar to `pre_process_function`. The function should accept `image, label` pairs. 
+It should return `image, label` too.  
+I recommend using `tf.image.random(...)` operations, which seem to be most suitable for 
+this implementation.  
 In the example below I'm writing a function that will randomly flip some examples in the image batch:
 ```python
-def my_augment(image_batch, label_batch):
-    flipped_image_batch = tf.image.random_flip_left_right(image_batch) 
-    return flipped_image_batch, label
+def my_augment(image, label):
+    flipped_image = tf.image.random_flip_left_right(image) 
+    return flipped_image, label
 ```
-For mode advanced cases (regaridng `np.arrays`, not Graph Tensors), you could probably get away with Tensorflow's [numpy function](https://www.tensorflow.org/api_docs/python/tf/numpy_function).    
+For more advanced cases (regarding `np.arrays`, not Graph Tensors), you could probably 
+get away with Tensorflow's [numpy function](https://www.tensorflow.org/api_docs/python/tf/numpy_function)
+at the cost of decreased performance.    
