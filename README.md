@@ -40,9 +40,9 @@ Either way, if all goes well, you should be able to simply call:
 `from tfdata_image_loader import TFDataImageLoader`
 
 ##### Running tests
-I'm using [pytest](https://docs.pytest.org/en/latest/) library for testing. To run the tests:  
-1. run `make init_test` (install test dependencies)
-2. run `make test`
+I'm using built-in `unittest` library for testing. To run the tests run `make test` in
+your terminal.   
+(Alternatively, `python -m unittest discover tests/`)
 
 ## Basic usage
 Here is a minimal example on how to create an image-label pairs `tf.data.Dataset` using `tfdata-image-loader`.  
@@ -84,9 +84,9 @@ Check out [docs/](https://github.com/sebastian-sz/tfdata-image-loader/tree/maste
 ## Performance
 One of the key motivations behind `tfdata-image-loader` was increased performance in data loading.
 Below is a snippet from my benchmark* comparing Tensorflow's image loading techniques:
-1. `tfdata-image-loader` (this repo): `79 ms/step`
-2. keras `ImageDataGenerator`: `128 ms/step`
-3. (New in TF 2.3) keras.preprocessing: `image_dataset_from_directory`: `102 ms/step` 
+1. `tfdata-image-loader` (this repo): `63 ms/step`
+2. Keras `ImageDataGenerator`: `121 ms/step`
+3. (New in TF 2.3) keras.preprocessing: `image_dataset_from_directory`: `95 ms/step` 
 
 *Benchmark notebook is available [here](https://colab.research.google.com/drive/1tsVqYcb_FE5pfAilG8Bybzbqkl5Mo5Zn?usp=sharing).  
   
