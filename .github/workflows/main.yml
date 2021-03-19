@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         python-version: [ 3.6, 3.7, 3.8 ]
-        tensorflow-version: [ 2.0, 2.1, 2.2, 2.3 ]
+        tensorflow-version: [ 2.0, 2.1, 2.2, 2.3, 2.4 ]
         # No Pip packages for TF <2.2 and python 3.8:
         exclude:
           - { python-version: 3.8, tensorflow-version: 2.0}

@@ -135,9 +135,9 @@ class TFDataImageLoader:
             file_names_dataset.map(
                 self._load_img_and_label, num_parallel_calls=self.AUTO_TUNE
             )
-            .batch(self.batch_size)
             .apply(self._maybe_apply_pre_processing)
             .apply(self._maybe_apply_augmentation)
+            .batch(self.batch_size)
             .apply(self._maybe_cache_content)
             .prefetch(self.AUTO_TUNE)
         )
