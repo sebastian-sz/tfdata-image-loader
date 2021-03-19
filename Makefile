@@ -4,8 +4,5 @@ format_code:
 install:
 	pip install -e .
 
-init_test:
-	cd tests; pip install -r requirements.txt
-
 test:
-	pytest tests/
+	python -m unittest discover tests/

@@ -21,10 +21,10 @@ class TFDataImageLoader:
     The order of the operations is as follows:
     1. load filenames.
     2. load labels.
-    3. load and resize images (cannot batch differently sized images hence resize here).
-    4. batch images and labels.
-    5. (optional) pre process data.
-    6. (optional) augment data.
+    3. load and resize images.
+    4. (optional) pre process data.
+    5. (optional) augment data.
+    6. batch images and labels.
     7. (optional) cache dataset.
     8. prefetch more samples in advance.
 
