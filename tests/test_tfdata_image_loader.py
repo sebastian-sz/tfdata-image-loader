@@ -5,13 +5,13 @@ import unittest
 import numpy as np
 import tensorflow as tf
 
+from tests._root_dir import ROOT_DIR
 from tfdata_image_loader import TFDataImageLoader
-from tfdata_image_loader_package_dir import LOADER_ROOT_DIR
 
 
 class TestImageDataLoader(unittest.TestCase):
     config = {
-        "data_path": os.path.join(LOADER_ROOT_DIR, "tests/resources/images"),
+        "data_path": os.path.join(ROOT_DIR, "resources/images"),
         "target_size": (240, 240),
         "pre_process_function": lambda x, y: (x, y),
         "shuffle": True,
@@ -155,17 +155,17 @@ class TestImageDataLoader(unittest.TestCase):
     def test_loader_matching_image_with_label(self):
         filenames = [
             # Class 1
-            "tests/resources/images/Class_2/picture_1.jpg",
-            "tests/resources/images/Class_2/picture_2.jpg",
-            "tests/resources/images/Class_2/picture_3.jpg",
-            "tests/resources/images/Class_2/picture_5.jpg",
-            "tests/resources/images/Class_2/picture_6.jpg",
-            "tests/resources/images/Class_2/picture_9.jpg",
-            "tests/resources/images/Class_2/picture_10.jpg",
+            "resources/images/Class_2/picture_1.jpg",
+            "resources/images/Class_2/picture_2.jpg",
+            "resources/images/Class_2/picture_3.jpg",
+            "resources/images/Class_2/picture_5.jpg",
+            "resources/images/Class_2/picture_6.jpg",
+            "resources/images/Class_2/picture_9.jpg",
+            "resources/images/Class_2/picture_10.jpg",
             # Class 2
-            "tests/resources/images/Class_1/picture_4.jpg",
-            "tests/resources/images/Class_1/picture_7.jpg",
-            "tests/resources/images/Class_1/picture_8.jpg",
+            "resources/images/Class_1/picture_4.jpg",
+            "resources/images/Class_1/picture_7.jpg",
+            "resources/images/Class_1/picture_8.jpg",
         ]
 
         labels = [
@@ -194,7 +194,7 @@ class TestImageDataLoader(unittest.TestCase):
             assert np.equal(expected_label, label.numpy()).all()
 
     def _make_image_hash_label_map(self, filenames, labels):
-        full_filenames = [os.path.join(LOADER_ROOT_DIR, x) for x in filenames]
+        full_filenames = [os.path.join(ROOT_DIR, x) for x in filenames]
 
         image_hashes = []
         for filename in full_filenames:
