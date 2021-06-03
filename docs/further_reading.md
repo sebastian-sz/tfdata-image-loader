@@ -1,7 +1,7 @@
 # Further reading
 This document presents further reading. If you are more interested in how
- `TFDataImageLoader` works you can find the detailed list of arguments below.  
- 
+ `TFDataImageLoader` works you can find the detailed list of arguments below.
+
 This directory also contains 3 jupyter notebooks:
 1. `quickstart.ipynb`
 2. `benchmark.ipynb`
@@ -23,11 +23,11 @@ Below is a detailed explanation of each possible argument you can pass to
 |pre_process_function**|a python function|(optional) Defaults to None. Knowing there are is a large variety of preprocessing types I left it to the user todefine his own preprocessing. The default loaded images are integers, in range `0-255`.
 |augmentation_function***|a python function|(optional) Defaults to None. Similar structure to `pre_process_function`. The data that comes out of `pre_process_function` is passed to this function. Use it augment your data.
 |verbose|boolean| Defaults to True. Whether to display loading information or not.
- _________________________  
- *shuffle  
+ _________________________
+ *shuffle
  Note that I am not using `tf.data`'s `shuffle` as it works best when combined
  with cache. If you still want `shuffle_buffer` style shuffling (for example after `cache()`) you
- can still call `.shuffle()` on returned dataset.  
+ can still call `.shuffle()` on returned dataset.
  Example:
  ```python
 train_loader = TFDataImageLoader(
@@ -42,7 +42,7 @@ dataset = dataset.shuffle(shuffle_buffer=...)
 ```
 _________________________
 
-**pre_process_function  
+**pre_process_function
 This user defined function should take two arguments `image, label` and return the same
 arguments, but preprocessed. Below is an example function, rescaling the images to 0-1
 floats:
@@ -50,21 +50,21 @@ floats:
  def my_pre_process(image, label):
     return image / 255., label
 ```
-For more advanced cases (regarding `np.arrays`, not Graph Tensors) you could probably 
+For more advanced cases (regarding `np.arrays`, not Graph Tensors) you could probably
 get away with Tensorflow's [numpy function](https://www.tensorflow.org/api_docs/python/tf/numpy_function)
 at the cost of decreased performance.
 _________________________
-***augmentation_function:  
-Similar to `pre_process_function`. The function should accept `image, label` pairs. 
-It should return `image, label` too.  
-I recommend using `tf.image.random(...)` operations, which seem to be most suitable for 
-this implementation.  
+***augmentation_function:
+Similar to `pre_process_function`. The function should accept `image, label` pairs.
+It should return `image, label` too.
+I recommend using `tf.image.random(...)` operations, which seem to be most suitable for
+this implementation.
 In the example below I'm writing a function that will randomly flip some examples in the image batch:
 ```python
 def my_augment(image, label):
-    flipped_image = tf.image.random_flip_left_right(image) 
+    flipped_image = tf.image.random_flip_left_right(image)
     return flipped_image, label
 ```
-For more advanced cases (regarding `np.arrays`, not Graph Tensors), you could probably 
+For more advanced cases (regarding `np.arrays`, not Graph Tensors), you could probably
 get away with Tensorflow's [numpy function](https://www.tensorflow.org/api_docs/python/tf/numpy_function)
-at the cost of decreased performance.    
+at the cost of decreased performance.

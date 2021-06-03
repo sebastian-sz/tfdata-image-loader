@@ -6,7 +6,7 @@ models (mostly for Image Classification).
 
 import os
 import pathlib
-from typing import Dict, Callable
+from typing import Callable, Dict
 
 import numpy as np
 import tensorflow as tf
@@ -123,13 +123,11 @@ class TFDataImageLoader:
         print("")
 
     def get_image_count(self):
-        """Returns the number of images detected in the data directory."""
+        """Return the number of images detected in the data directory."""
         return len(list(self.data_dir.glob("*/*")))
 
     def load_dataset(self):
-        """
-        Returns tf.data.Dataset based on parameters passed to the class constructor.
-        """
+        """Return tf.data.Dataset based on parameters passed to the constructor."""
         file_names_dataset = self._load_file_names()
         return (
             file_names_dataset.map(
@@ -172,16 +170,14 @@ class TFDataImageLoader:
     def _maybe_apply_pre_processing(self, dataset):
         if self.pre_process_function:
             dataset = dataset.map(
-                self.pre_process_function,
-                num_parallel_calls=self.AUTO_TUNE,
+                self.pre_process_function, num_parallel_calls=self.AUTO_TUNE
             )
         return dataset
 
     def _maybe_apply_augmentation(self, dataset):
         if self.augmentation_function:
             dataset = dataset.map(
-                self.augmentation_function,
-                num_parallel_calls=self.AUTO_TUNE,
+                self.augmentation_function, num_parallel_calls=self.AUTO_TUNE
             )
         return dataset
 
@@ -191,5 +187,5 @@ class TFDataImageLoader:
         return dataset
 
     def calc_expected_steps(self):
-        """Returns the expected number of steps in one dataset loop."""
+        """Return the expected number of steps in one dataset loop."""
         return int(self.get_image_count() / self.batch_size)
