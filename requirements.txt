@@ -1,1 +1,2 @@
-tensorflow>=2.0.0
+# Lint tool
+pre-commit>=2.12,<2.13

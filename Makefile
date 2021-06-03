@@ -8,4 +8,4 @@ test:
 	python -m unittest discover tests/
 
 lint:
-	flake8 --max-line-length=88 .
+	pre-commit run --all-files
