@@ -27,14 +27,14 @@ This [Colab Quickstart Example](https://colab.research.google.com/drive/11Qpe8zJ
  * Python 3.6+
  * Tensorflow 2.x
 
-##### Pip one-liner:
-`pip install -e git+git://github.com/sebastian-sz/tfdata-image-loader.git#egg=tfdata-image-loader`
+##### (Recommended) Pip one-liner:
+`pip install git+https://github.com/sebastian-sz/tfdata-image-loader@main`
 
 ##### (Alternatively) Build from source:
 ```bash
 git clone https://github.com/sebastian-sz/tfdata-image-loader.git
 cd tfdata-image-loader
-pip install -e .
+pip install .
 ```
 Either way, if all goes well, you should be able to simply call:
 `from tfdata_image_loader import TFDataImageLoader`
