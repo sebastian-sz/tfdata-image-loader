@@ -20,5 +20,4 @@ setup(
         "Programming Language :: Python :: 3",
     ],
     packages=["tfdata_image_loader"],
-    install_requires=["tensorflow>=2.0,<2.6"],
 )
